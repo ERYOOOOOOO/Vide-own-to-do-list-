@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Control — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-leaf">🍵</span>
+      <span class="brand-name">Mission Control</span>
+    </div>
+    <div class="topbar-actions">
+      <span class="coin-pill"><span class="coin-icon">🪙</span><span id="coinCount">0</span></span>
+      <button id="dataBtn" class="btn btn-ghost">⚙️ จัดการข้อมูล</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- LIFE GOALS -->
+  <section class="card" id="lifeGoalsCard">
+    <div class="card-header">
+      <h2>🎯 เป้าหมายชีวิต</h2>
+      <button class="btn btn-ghost btn-sm" data-edit="lifeGoals">แก้ไข</button>
+    </div>
+    <div class="card-body">
+      <p class="identity-text" id="identityText" data-field="identity">นักเรียน ม.6 ที่ตั้งเป้าหมายเปลี่ยนตัวเองให้เป็นคนใหม่</p>
+      <p class="goal-text"><strong>เป้าหมายระยะยาว:</strong> <span id="longGoalText" data-field="longTermGoal">เป็น Software Engineer / Full Stack Developer ที่มีพื้นฐาน CS แข็งแรง สร้างโปรเจกต์ของตัวเองได้ และทำงานกับบริษัทเทคระดับโลกได้ในอนาคต</span></p>
+      <div class="priority-list" id="priorityList"></div>
+    </div>
+  </section>
+
+  <!-- DAILY SCHEDULE -->
+  <section class="card" id="scheduleCard">
+    <div class="card-header">
+      <h2>🗓️ ตารางประจำวัน</h2>
+      <button class="btn btn-ghost btn-sm" id="addScheduleRow">+ เพิ่มช่วงเวลา</button>
+    </div>
+    <div class="card-body">
+      <table class="schedule-table">
+        <thead><tr><th>เวลา</th><th>กิจกรรม</th><th></th></tr></thead>
+        <tbody id="scheduleBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- WEEKLY FOCUS -->
+  <section class="card" id="weeklyFocusCard">
+    <div class="card-header">
+      <h2>🌱 Weekly Focus</h2>
+      <button class="btn btn-ghost btn-sm" id="addFocusItem">+ เพิ่มรายการ</button>
+    </div>
+    <div class="card-body">
+      <input type="text" id="focusTheme" class="input-inline theme-input" placeholder="ธีมของสัปดาห์นี้ เช่น สัปดาห์แห่งการทบทวนฟิสิกส์">
+      <ul class="checklist" id="focusChecklist"></ul>
+    </div>
+  </section>
+
+  <!-- EXERCISE -->
+  <section class="card" id="exerciseCard">
+    <div class="card-header">
+      <h2>💪 โปรแกรมออกกำลังกาย</h2>
+    </div>
+    <div class="card-body">
+      <div class="week-plan" id="exerciseWeekPlan"></div>
+      <div class="today-workout" id="todayWorkout"></div>
+      <div class="tabs" id="exerciseTabs"></div>
+      <ul class="checklist" id="exerciseChecklist"></ul>
+      <button class="btn btn-ghost btn-sm" id="addExerciseItem">+ เพิ่มท่าออกกำลังกาย</button>
+    </div>
+  </section>
+
+  <!-- EXAM PREP -->
+  <section class="card" id="examCard">
+    <div class="card-header">
+      <h2>📚 ติดตามการสอบ</h2>
+    </div>
+    <div class="card-body">
+      <div class="tabs" id="examTabs"></div>
+      <div id="examSubjects"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="card" id="projectsCard">
+    <div class="card-header">
+      <h2>🛠️ โปรเจกต์</h2>
+      <button class="btn btn-ghost btn-sm" id="addProject">+ เพิ่มโปรเจกต์</button>
+    </div>
+    <div class="card-body">
+      <div class="project-grid" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- HABIT TRACKER -->
+  <section class="card" id="habitCard">
+    <div class="card-header">
+      <h2>🔥 Habit Streak Tracker</h2>
+      <button class="btn btn-ghost btn-sm" id="addHabit">+ เพิ่มนิสัย</button>
+    </div>
+    <div class="card-body">
+      <p class="earn-hint">ทำ habit ได้วันละ <b>+10</b> 🪙 · โฟกัสสำเร็จ <b>+20</b> · ออกกำลังกาย <b>+15</b></p>
+      <div class="habit-list" id="habitList"></div>
+    </div>
+  </section>
+
+  <!-- REWARD SHOP -->
+  <section class="card" id="shopCard">
+    <div class="card-header">
+      <h2>🪙 ร้านแลกรางวัล</h2>
+      <button class="btn btn-ghost btn-sm" id="addShopItem">+ เพิ่มรางวัล</button>
+    </div>
+    <div class="card-body">
+      <div class="coin-balance-box">
+        <span class="coin-balance-label">เหรียญที่มี</span>
+        <span class="coin-balance-big"><span id="coinBalanceBig">0</span> 🪙</span>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+      <h3 class="shop-history-title">ประวัติการแลก</h3>
+      <div class="shop-history" id="shopHistory"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Mission Control · ข้อมูลเก็บในเครื่องนี้ (localStorage) · แชร์ไปเครื่องอื่นได้ผ่าน "จัดการข้อมูล"</p>
+</footer>
+
+<!-- DATA (SHARE / BACKUP) MODAL -->
+<div class="modal-overlay" id="dataModal" hidden>
+  <div class="modal-card modal-card-wide">
+    <button class="btn-icon modal-close" id="dataClose">✕</button>
+    <h2>⚙️ จัดการข้อมูล</h2>
+
+    <div class="data-section">
+      <h3>📤 ส่งออก / แชร์</h3>
+      <p class="modal-hint">คัดลอกโค้ดนี้ (หรือดาวน์โหลดไฟล์) เอาไปวางในเครื่องอื่นเพื่อย้ายข้อมูลทั้งหมด</p>
+      <textarea id="exportText" class="data-textarea" readonly></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="exportCopyBtn">📋 คัดลอก</button>
+        <button class="btn btn-ghost" id="exportDownloadBtn">💾 ดาวน์โหลดไฟล์</button>
+      </div>
+    </div>
+
+    <div class="data-section">
+      <h3>📥 นำเข้า</h3>
+      <p class="modal-hint">วางโค้ดที่คัดลอกมา หรือเลือกไฟล์ backup แล้วกดนำเข้า <b>(ข้อมูลเดิมในเครื่องนี้จะถูกเขียนทับ)</b></p>
+      <textarea id="importText" class="data-textarea" placeholder="วางโค้ดข้อมูลที่นี่..."></textarea>
+      <input type="file" id="importFile" accept="application/json,.json">
+      <p id="importMsg" class="modal-error" hidden></p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="importBtn">นำเข้าข้อมูล</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
