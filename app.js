@@ -14,6 +14,14 @@ function defaultState() {
         "ภาษาอังกฤษ",
       ],
     },
+    dailyMissions: {
+      list: [
+        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false },
+        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false },
+        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false },
+      ],
+      lastResetDate: null, // วันที่ (todayStr) ที่รีเซ็ตล่าสุด
+    },
     schedule: [
       { time: "06:30", activity: "ตื่นนอน" },
       { time: "07:00", activity: "ไปโรงเรียน" },
@@ -109,7 +117,7 @@ function defaultCoins() {
 }
 
 // อัตราการได้เหรียญจากการทำสิ่งต่าง ๆ
-const COIN_REWARDS = { habit: 1, focus: 2, exercise: 5 };
+const COIN_REWARDS = { habit: 1, focus: 2, exercise: 5, mission: 2 };
 
 /* ---------- State + localStorage ---------- */
 let state = null;
@@ -134,6 +142,9 @@ function migrateState(s) {
     s.exerciseWeek.lastResetWeek = mondayOfWeek(); // ไม่ล้างของสัปดาห์ปัจจุบันตอนอัปเดตครั้งแรก
   }
   if (!s.exerciseWeek.plan || typeof s.exerciseWeek.plan !== "object") s.exerciseWeek.plan = base.exerciseWeek.plan;
+  if (!s.dailyMissions || typeof s.dailyMissions !== "object") s.dailyMissions = base.dailyMissions;
+  if (!Array.isArray(s.dailyMissions.list)) s.dailyMissions.list = base.dailyMissions.list;
+  if (s.dailyMissions.lastResetDate === undefined) s.dailyMissions.lastResetDate = todayStr();
   return s;
 }
 
@@ -209,6 +220,7 @@ function showToast(msg) {
 function renderAll() {
   renderLifeGoals();
   renderSchedule();
+  renderDailyMissions();
   renderWeeklyFocus();
   renderExercise();
   renderExamPrep();
@@ -288,6 +300,61 @@ document.getElementById("addScheduleRow").addEventListener("click", () => {
   state.schedule.push({ time: "00:00", activity: "" });
   scheduleSave();
   renderSchedule();
+});
+
+/* ---------- Daily Missions + auto-reset ---------- */
+// พอขึ้นวันใหม่ → เคลียร์เครื่องหมายภารกิจประจำวันทั้งหมด และปลดล็อกให้เก็บเหรียญได้ใหม่ในวันนั้น
+function maybeDailyReset() {
+  const today = todayStr();
+  if (state.dailyMissions.lastResetDate === today) return;
+  state.dailyMissions.list.forEach((item) => { item.done = false; });
+  Object.keys(state.coins.earnedKeys).forEach((k) => {
+    if (k.startsWith("mission|")) delete state.coins.earnedKeys[k];
+  });
+  state.dailyMissions.lastResetDate = today;
+  saveLocal();
+}
+function renderDailyMissions() {
+  const list = document.getElementById("dailyMissionList");
+  list.innerHTML = "";
+  state.dailyMissions.list.forEach((item, i) => {
+    const li = document.createElement("li");
+    li.className = item.done ? "done" : "";
+    li.innerHTML = `
+      <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
+      <input type="text" class="check-label" value="${escapeAttr(item.text)}" data-idx="${i}">
+      <button class="btn-icon" data-remove="${i}">✕</button>
+    `;
+    list.appendChild(li);
+  });
+  list.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+    cb.addEventListener("change", (e) => {
+      const idx = +e.target.dataset.idx;
+      const item = state.dailyMissions.list[idx];
+      item.done = e.target.checked;
+      if (item.done && item.text.trim()) awardCoins("mission|" + item.text.trim(), COIN_REWARDS.mission);
+      scheduleSave();
+      renderDailyMissions();
+    });
+  });
+  list.querySelectorAll('input[type="text"]').forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.dailyMissions.list[+e.target.dataset.idx].text = e.target.value;
+      scheduleSave();
+    });
+  });
+  list.querySelectorAll("[data-remove]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      state.dailyMissions.list.splice(+e.target.dataset.remove, 1);
+      scheduleSave();
+      renderDailyMissions();
+    });
+  });
+}
+document.getElementById("addDailyMission").addEventListener("click", () => {
+  state.dailyMissions.list.push({ text: "", done: false });
+  scheduleSave();
+  renderDailyMissions();
 });
 
 /* ---------- Weekly Focus ---------- */
@@ -767,6 +834,7 @@ function escapeAttr(str) { return escapeHtml(str); }
 /* ---------- Init ---------- */
 function init() {
   state = loadLocal();
+  maybeDailyReset();
   maybeWeeklyReset();
   renderAll();
 
