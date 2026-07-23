@@ -117,7 +117,7 @@ function defaultCoins() {
 }
 
 // อัตราการได้เหรียญจากการทำสิ่งต่าง ๆ
-const COIN_REWARDS = { habit: 1, focus: 2, exercise: 5, mission: 2 };
+const COIN_REWARDS = { habit: 5, focus: 10, exercise: 10, mission: 20};
 
 /* ---------- State + localStorage ---------- */
 let state = null;
