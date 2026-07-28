@@ -16,9 +16,9 @@ function defaultState() {
     },
     dailyMissions: {
       list: [
-        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false },
-        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false },
-        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false },
+        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false, coin: 2 },
+        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false, coin: 2 },
+        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false, coin: 2 },
       ],
       lastResetDate: null, // วันที่ (todayStr) ที่รีเซ็ตล่าสุด
     },
@@ -36,37 +36,40 @@ function defaultState() {
     weeklyFocus: {
       theme: "สัปดาห์นี้: โฟกัส Coding + Physics",
       checklist: [
-        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false },
-        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false },
-        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false },
+        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false, coin: 2 },
+        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false, coin: 2 },
+        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false, coin: 2 },
       ],
     },
     exercise: {
       "Push Day": [
-        { name: "Push-up 3x12", done: false },
-        { name: "Pike Push-up 3x8", done: false },
-        { name: "Dips 3x10", done: false },
+        { name: "Push-up 3x12", done: false, coin: 5 },
+        { name: "Pike Push-up 3x8", done: false, coin: 5 },
+        { name: "Dips 3x10", done: false, coin: 5 },
       ],
       "Pull Day": [
-        { name: "Pull-up / Negative 3x6", done: false },
-        { name: "Australian Row 3x12", done: false },
+        { name: "Pull-up / Negative 3x6", done: false, coin: 5 },
+        { name: "Australian Row 3x12", done: false, coin: 5 },
       ],
       "Leg Day": [
-        { name: "Squat 4x15", done: false },
-        { name: "Lunges 3x12/ข้าง", done: false },
-        { name: "Calf Raise 3x20", done: false },
+        { name: "Squat 4x15", done: false, coin: 5 },
+        { name: "Lunges 3x12/ข้าง", done: false, coin: 5 },
+        { name: "Calf Raise 3x20", done: false, coin: 5 },
       ],
       "Core": [
-        { name: "Plank 3x45s", done: false },
-        { name: "Leg Raise 3x12", done: false },
+        { name: "Plank 3x45s", done: false, coin: 5 },
+        { name: "Leg Raise 3x12", done: false, coin: 5 },
       ],
       "Mobility/Stretch": [
-        { name: "Full Body Stretch 10 นาที", done: false },
-        { name: "Hip Mobility Drill", done: false },
+        { name: "Full Body Stretch 10 นาที", done: false, coin: 5 },
+        { name: "Hip Mobility Drill", done: false, coin: 5 },
       ],
       "Plyometric": [
-        { name: "Jump Squat 3x10", done: false },
-        { name: "Box Jump / Broad Jump 3x8", done: false },
+        { name: "Jump Squat 3x10", done: false, coin: 5 },
+        { name: "Box Jump / Broad Jump 3x8", done: false, coin: 5 },
+      ],
+      "Sport": [
+        { name: "เล่นกีฬา", done: false, coin: 100 },
       ],
     },
     exerciseWeek: {
@@ -90,11 +93,11 @@ function defaultState() {
       { title: "Mission Control Dashboard", status: "กำลังทำ", notes: "เว็บติดตามเป้าหมายชีวิต + ระบบเหรียญแลกรางวัล เก็บข้อมูลในเครื่อง" },
     ],
     habits: {
-      "เขียนโค้ดทุกวัน": { streak: 0, history: {} },
-      "ออกกำลังกาย": { streak: 0, history: {} },
-      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {} },
-      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {} },
-      "ลดเวลาดู Shorts": { streak: 0, history: {} },
+      "เขียนโค้ดทุกวัน": { streak: 0, history: {}, coin: 1 },
+      "ออกกำลังกาย": { streak: 0, history: {}, coin: 1 },
+      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {}, coin: 1 },
+      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {}, coin: 1 },
+      "ลดเวลาดู Shorts": { streak: 0, history: {}, coin: 1 },
     },
     coins: defaultCoins(),
   };
@@ -145,6 +148,8 @@ function migrateState(s) {
   if (!s.dailyMissions || typeof s.dailyMissions !== "object") s.dailyMissions = base.dailyMissions;
   if (!Array.isArray(s.dailyMissions.list)) s.dailyMissions.list = base.dailyMissions.list;
   if (s.dailyMissions.lastResetDate === undefined) s.dailyMissions.lastResetDate = todayStr();
+  if (!s.exercise || typeof s.exercise !== "object") s.exercise = base.exercise;
+  if (!Array.isArray(s.exercise["Sport"]) || s.exercise["Sport"].length === 0) s.exercise["Sport"] = base.exercise["Sport"];
   return s;
 }
 
@@ -186,6 +191,11 @@ function updateCoinDisplay() {
   const big = document.getElementById("coinBalanceBig");
   if (big) big.textContent = state.coins.balance;
   refreshShopAffordability();
+}
+
+// ช่องแก้ไขจำนวนเหรียญของแต่ละรายการ (habit / focus / exercise / mission)
+function coinInputHtml(idx, value, fallback) {
+  return `<span class="item-coin">🪙<input type="number" class="item-coin-input" min="0" value="${value ?? fallback}" data-idx="${idx}"></span>`;
 }
 
 function refreshShopAffordability() {
@@ -323,6 +333,7 @@ function renderDailyMissions() {
     li.innerHTML = `
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.text)}" data-idx="${i}">
+      ${coinInputHtml(i, item.coin, COIN_REWARDS.mission)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -332,7 +343,7 @@ function renderDailyMissions() {
       const idx = +e.target.dataset.idx;
       const item = state.dailyMissions.list[idx];
       item.done = e.target.checked;
-      if (item.done && item.text.trim()) awardCoins("mission|" + item.text.trim(), COIN_REWARDS.mission);
+      if (item.done && item.text.trim()) awardCoins("mission|" + item.text.trim(), item.coin ?? COIN_REWARDS.mission);
       scheduleSave();
       renderDailyMissions();
     });
@@ -340,6 +351,12 @@ function renderDailyMissions() {
   list.querySelectorAll('input[type="text"]').forEach((inp) => {
     inp.addEventListener("input", (e) => {
       state.dailyMissions.list[+e.target.dataset.idx].text = e.target.value;
+      scheduleSave();
+    });
+  });
+  list.querySelectorAll(".item-coin-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.dailyMissions.list[+e.target.dataset.idx].coin = Math.max(0, +e.target.value || 0);
       scheduleSave();
     });
   });
@@ -352,7 +369,7 @@ function renderDailyMissions() {
   });
 }
 document.getElementById("addDailyMission").addEventListener("click", () => {
-  state.dailyMissions.list.push({ text: "", done: false });
+  state.dailyMissions.list.push({ text: "", done: false, coin: COIN_REWARDS.mission });
   scheduleSave();
   renderDailyMissions();
 });
@@ -369,6 +386,7 @@ function renderWeeklyFocus() {
     li.innerHTML = `
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.text)}" data-idx="${i}">
+      ${coinInputHtml(i, item.coin, COIN_REWARDS.focus)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -378,7 +396,7 @@ function renderWeeklyFocus() {
       const idx = +e.target.dataset.idx;
       const item = state.weeklyFocus.checklist[idx];
       item.done = e.target.checked;
-      if (item.done && item.text.trim()) awardCoins("focus|" + item.text.trim(), COIN_REWARDS.focus);
+      if (item.done && item.text.trim()) awardCoins("focus|" + item.text.trim(), item.coin ?? COIN_REWARDS.focus);
       scheduleSave();
       renderWeeklyFocus();
     });
@@ -386,6 +404,12 @@ function renderWeeklyFocus() {
   list.querySelectorAll('input[type="text"]').forEach((inp) => {
     inp.addEventListener("input", (e) => {
       state.weeklyFocus.checklist[+e.target.dataset.idx].text = e.target.value;
+      scheduleSave();
+    });
+  });
+  list.querySelectorAll(".item-coin-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.weeklyFocus.checklist[+e.target.dataset.idx].coin = Math.max(0, +e.target.value || 0);
       scheduleSave();
     });
   });
@@ -402,7 +426,7 @@ document.getElementById("focusTheme").addEventListener("input", (e) => {
   scheduleSave();
 });
 document.getElementById("addFocusItem").addEventListener("click", () => {
-  state.weeklyFocus.checklist.push({ text: "", done: false });
+  state.weeklyFocus.checklist.push({ text: "", done: false, coin: COIN_REWARDS.focus });
   scheduleSave();
   renderWeeklyFocus();
 });
@@ -501,6 +525,7 @@ function renderExercise() {
     li.innerHTML = `
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.name)}" data-idx="${i}">
+      ${coinInputHtml(i, item.coin, COIN_REWARDS.exercise)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -510,7 +535,7 @@ function renderExercise() {
       const item = state.exercise[activeExerciseDay][+e.target.dataset.idx];
       item.done = e.target.checked;
       if (item.done && item.name.trim())
-        awardCoins("exercise|" + activeExerciseDay + "|" + item.name.trim(), COIN_REWARDS.exercise);
+        awardCoins("exercise|" + activeExerciseDay + "|" + item.name.trim(), item.coin ?? COIN_REWARDS.exercise);
       scheduleSave();
       renderExercise();
     });
@@ -518,6 +543,12 @@ function renderExercise() {
   list.querySelectorAll('input[type="text"]').forEach((inp) => {
     inp.addEventListener("input", (e) => {
       state.exercise[activeExerciseDay][+e.target.dataset.idx].name = e.target.value;
+      scheduleSave();
+    });
+  });
+  list.querySelectorAll(".item-coin-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.exercise[activeExerciseDay][+e.target.dataset.idx].coin = Math.max(0, +e.target.value || 0);
       scheduleSave();
     });
   });
@@ -531,7 +562,7 @@ function renderExercise() {
 }
 document.getElementById("addExerciseItem").addEventListener("click", () => {
   if (!activeExerciseDay) return;
-  state.exercise[activeExerciseDay].push({ name: "", done: false });
+  state.exercise[activeExerciseDay].push({ name: "", done: false, coin: COIN_REWARDS.exercise });
   scheduleSave();
   renderExercise();
 });
@@ -647,6 +678,7 @@ function renderHabits() {
     row.innerHTML = `
       <input type="text" class="habit-name" value="${escapeAttr(name)}" data-oldname="${escapeAttr(name)}">
       <span class="habit-streak">🔥 ${habit.streak} วัน</span>
+      <span class="item-coin">🪙<input type="number" class="item-coin-input" min="0" value="${habit.coin ?? COIN_REWARDS.habit}" data-habit="${escapeAttr(name)}"></span>
       <div class="habit-days">${daysHtml}</div>
       <button class="btn-icon" data-remove-habit="${escapeAttr(name)}">✕</button>
     `;
@@ -659,9 +691,15 @@ function renderHabits() {
       const day = e.target.dataset.day;
       const hist = state.habits[name].history || (state.habits[name].history = {});
       hist[day] = !hist[day];
-      if (hist[day]) awardCoins("habit|" + name + "|" + day, COIN_REWARDS.habit);
+      if (hist[day]) awardCoins("habit|" + name + "|" + day, state.habits[name].coin ?? COIN_REWARDS.habit);
       scheduleSave();
       renderHabits();
+    });
+  });
+  list.querySelectorAll(".item-coin-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.habits[e.target.dataset.habit].coin = Math.max(0, +e.target.value || 0);
+      scheduleSave();
     });
   });
   list.querySelectorAll(".habit-name").forEach((inp) => {
@@ -688,7 +726,7 @@ document.getElementById("addHabit").addEventListener("click", () => {
   let name = "นิสัยใหม่";
   let n = 1;
   while (state.habits[name]) { n++; name = `นิสัยใหม่ ${n}`; }
-  state.habits[name] = { streak: 0, history: {} };
+  state.habits[name] = { streak: 0, history: {}, coin: COIN_REWARDS.habit };
   scheduleSave();
   renderHabits();
 });

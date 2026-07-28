@@ -198,6 +198,28 @@ p { margin: 0 0 8px; }
 .check-label { flex: 1; border: none; background: transparent; font-family: inherit; font-size: 0.9rem; color: var(--text); }
 .check-label:focus { outline: none; }
 
+/* ---------- Editable coin reward (per item) ---------- */
+.item-coin {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--matcha-dark);
+  flex-shrink: 0;
+}
+.item-coin-input {
+  width: 52px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 3px 5px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
 .input-inline {
   width: 100%;
   border: 1px solid var(--border);
