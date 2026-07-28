@@ -16,9 +16,9 @@ function defaultState() {
     },
     dailyMissions: {
       list: [
-        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false, coin: 2 },
-        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false, coin: 2 },
-        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false, coin: 2 },
+        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false, coin: 10 },
+        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false, coin: 10 },
+        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false, coin: 10 },
       ],
       lastResetDate: null, // วันที่ (todayStr) ที่รีเซ็ตล่าสุด
     },
@@ -36,37 +36,37 @@ function defaultState() {
     weeklyFocus: {
       theme: "สัปดาห์นี้: โฟกัส Coding + Physics",
       checklist: [
-        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false, coin: 2 },
-        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false, coin: 2 },
-        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false, coin: 2 },
+        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false, coin: 20 },
+        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false, coin: 20 },
+        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false, coin: 20 },
       ],
     },
     exercise: {
       "Push Day": [
-        { name: "Push-up 3x12", done: false, coin: 5 },
-        { name: "Pike Push-up 3x8", done: false, coin: 5 },
-        { name: "Dips 3x10", done: false, coin: 5 },
+        { name: "Push-up 3x12", done: false, coin: 10 },
+        { name: "Pike Push-up 3x8", done: false, coin: 10 },
+        { name: "Dips 3x10", done: false, coin: 10 },
       ],
       "Pull Day": [
-        { name: "Pull-up / Negative 3x6", done: false, coin: 5 },
-        { name: "Australian Row 3x12", done: false, coin: 5 },
+        { name: "Pull-up / Negative 3x6", done: false, coin: 10 },
+        { name: "Australian Row 3x12", done: false, coin: 10 },
       ],
       "Leg Day": [
-        { name: "Squat 4x15", done: false, coin: 5 },
-        { name: "Lunges 3x12/ข้าง", done: false, coin: 5 },
-        { name: "Calf Raise 3x20", done: false, coin: 5 },
+        { name: "Squat 4x15", done: false, coin: 10 },
+        { name: "Lunges 3x12/ข้าง", done: false, coin: 10 },
+        { name: "Calf Raise 3x20", done: false, coin: 10 },
       ],
       "Core": [
-        { name: "Plank 3x45s", done: false, coin: 5 },
-        { name: "Leg Raise 3x12", done: false, coin: 5 },
+        { name: "Plank 3x45s", done: false, coin: 10 },
+        { name: "Leg Raise 3x12", done: false, coin: 10 },
       ],
       "Mobility/Stretch": [
-        { name: "Full Body Stretch 10 นาที", done: false, coin: 5 },
-        { name: "Hip Mobility Drill", done: false, coin: 5 },
+        { name: "Full Body Stretch 10 นาที", done: false, coin: 10 },
+        { name: "Hip Mobility Drill", done: false, coin: 10 },
       ],
       "Plyometric": [
-        { name: "Jump Squat 3x10", done: false, coin: 5 },
-        { name: "Box Jump / Broad Jump 3x8", done: false, coin: 5 },
+        { name: "Jump Squat 3x10", done: false, coin: 10 },
+        { name: "Box Jump / Broad Jump 3x8", done: false, coin: 10 },
       ],
       "Sport": [
         { name: "เล่นกีฬา", done: false, coin: 100 },
@@ -93,11 +93,11 @@ function defaultState() {
       { title: "Mission Control Dashboard", status: "กำลังทำ", notes: "เว็บติดตามเป้าหมายชีวิต + ระบบเหรียญแลกรางวัล เก็บข้อมูลในเครื่อง" },
     ],
     habits: {
-      "เขียนโค้ดทุกวัน": { streak: 0, history: {}, coin: 1 },
-      "ออกกำลังกาย": { streak: 0, history: {}, coin: 1 },
-      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {}, coin: 1 },
-      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {}, coin: 1 },
-      "ลดเวลาดู Shorts": { streak: 0, history: {}, coin: 1 },
+      "เขียนโค้ดทุกวัน": { streak: 0, history: {}, coin: 5 },
+      "ออกกำลังกาย": { streak: 0, history: {}, coin: 5 },
+      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {}, coin: 5 },
+      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {}, coin: 5 },
+      "ลดเวลาดู Shorts": { streak: 0, history: {}, coin: 5 },
     },
     coins: defaultCoins(),
   };
