@@ -82,7 +82,7 @@ function defaultState() {
         "เสาร์": "Leg Day",
         "อาทิตย์": "Rest",
       },
-      lastResetWeek: null, // ISO วันจันทร์ของสัปดาห์ที่รีเซ็ตล่าสุด
+      lastResetDate: null, // วันที่ (todayStr) ที่รีเซ็ตเครื่องหมายท่าออกกำลังกายล่าสุด
     },
     examPrep: {
       "TGAT": { "English": 0, "Math 1": 0 },
@@ -142,9 +142,10 @@ function migrateState(s) {
   if (!Array.isArray(s.coins.history)) s.coins.history = [];
   if (!s.exerciseWeek || typeof s.exerciseWeek !== "object") {
     s.exerciseWeek = base.exerciseWeek;
-    s.exerciseWeek.lastResetWeek = mondayOfWeek(); // ไม่ล้างของสัปดาห์ปัจจุบันตอนอัปเดตครั้งแรก
+    s.exerciseWeek.lastResetDate = todayStr(); // ไม่ล้างของวันนี้ตอนอัปเดตครั้งแรก
   }
   if (!s.exerciseWeek.plan || typeof s.exerciseWeek.plan !== "object") s.exerciseWeek.plan = base.exerciseWeek.plan;
+  if (s.exerciseWeek.lastResetDate === undefined) s.exerciseWeek.lastResetDate = todayStr();
   if (!s.dailyMissions || typeof s.dailyMissions !== "object") s.dailyMissions = base.dailyMissions;
   if (!Array.isArray(s.dailyMissions.list)) s.dailyMissions.list = base.dailyMissions.list;
   if (s.dailyMissions.lastResetDate === undefined) s.dailyMissions.lastResetDate = todayStr();
@@ -431,7 +432,7 @@ document.getElementById("addFocusItem").addEventListener("click", () => {
   renderWeeklyFocus();
 });
 
-/* ---------- Weekly workout plan + auto-reset ---------- */
+/* ---------- Weekly workout plan + daily auto-reset ---------- */
 const THAI_DAYS = [
   { dow: 1, short: "จ", full: "จันทร์" },
   { dow: 2, short: "อ", full: "อังคาร" },
@@ -441,14 +442,6 @@ const THAI_DAYS = [
   { dow: 6, short: "ส", full: "เสาร์" },
   { dow: 0, short: "อา", full: "อาทิตย์" },
 ];
-// ISO วันจันทร์ (ตามเวลาเครื่อง) ของสัปดาห์ที่มีวันที่ d
-function mondayOfWeek(d = new Date()) {
-  const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  const day = date.getDay();
-  date.setDate(date.getDate() + (day === 0 ? -6 : 1 - day));
-  const pad = (x) => String(x).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-}
 function thaiFullToday() {
   const dow = new Date().getDay();
   const found = THAI_DAYS.find((d) => d.dow === dow);
@@ -456,17 +449,17 @@ function thaiFullToday() {
 }
 function shortWorkout(type) { return String(type).replace(/\s*Day$/, ""); }
 
-// พอขึ้นวันจันทร์ใหม่ → เคลียร์เครื่องหมายท่าออกกำลังกายทั้งหมด และปลดล็อกให้เก็บเหรียญออกกำลังกายได้ใหม่
-function maybeWeeklyReset() {
-  const currentMon = mondayOfWeek();
-  if (state.exerciseWeek.lastResetWeek === currentMon) return;
+// พอขึ้นวันใหม่ → เคลียร์เครื่องหมายท่าออกกำลังกายทั้งหมด และปลดล็อกให้เก็บเหรียญออกกำลังกายได้ใหม่ในวันนั้น
+function maybeExerciseDailyReset() {
+  const today = todayStr();
+  if (state.exerciseWeek.lastResetDate === today) return;
   Object.keys(state.exercise).forEach((type) => {
     state.exercise[type].forEach((item) => { item.done = false; });
   });
   Object.keys(state.coins.earnedKeys).forEach((k) => {
     if (k.startsWith("exercise|")) delete state.coins.earnedKeys[k];
   });
-  state.exerciseWeek.lastResetWeek = currentMon;
+  state.exerciseWeek.lastResetDate = today;
   saveLocal();
 }
 
@@ -873,7 +866,7 @@ function escapeAttr(str) { return escapeHtml(str); }
 function init() {
   state = loadLocal();
   maybeDailyReset();
-  maybeWeeklyReset();
+  maybeExerciseDailyReset();
   renderAll();
 
   document.getElementById("dataBtn").addEventListener("click", openDataModal);
