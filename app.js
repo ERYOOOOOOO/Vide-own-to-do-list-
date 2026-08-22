@@ -559,25 +559,14 @@ document.getElementById("addExerciseItem").addEventListener("click", () => {
   scheduleSave();
   renderExercise();
 });
-// ล้างเครื่องหมายออกกำลังกายทั้งหมดด้วยมือ (ก่อนถึงรอบรีเซ็ตอัตโนมัติ) พร้อมหักเหรียญที่เคยได้จากรายการที่ติ๊กไว้คืน
+// ล้างเครื่องหมายออกกำลังกายทั้งหมดด้วยมือ (ก่อนถึงรอบรีเซ็ตอัตโนมัติ) โดยไม่กระทบเหรียญที่ได้ไปแล้ว
 document.getElementById("resetExerciseToday").addEventListener("click", () => {
-  let refunded = 0;
   Object.keys(state.exercise).forEach((type) => {
-    state.exercise[type].forEach((item) => {
-      if (!item.done) return;
-      const key = "exercise|" + type + "|" + item.name.trim();
-      if (state.coins.earnedKeys[key]) {
-        refunded += state.coins.earnedKeys[key];
-        delete state.coins.earnedKeys[key];
-      }
-      item.done = false;
-    });
+    state.exercise[type].forEach((item) => { item.done = false; });
   });
-  if (refunded > 0) state.coins.balance = Math.max(0, state.coins.balance - refunded);
   scheduleSave();
-  updateCoinDisplay();
   renderExercise();
-  showToast(refunded > 0 ? `รีเซ็ตวันนี้แล้ว หักเหรียญคืน -${refunded} 🪙` : "รีเซ็ตวันนี้แล้ว");
+  showToast("รีเซ็ตวันนี้แล้ว");
 });
 
 /* ---------- Exam Prep ---------- */
