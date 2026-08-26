@@ -134,7 +134,7 @@ const COIN_REWARDS = { habit: 5, focus: 20, exercise: 10, mission: 10};
 // exp เริ่มต้นของแต่ละรายการ (แก้ต่อรายการได้ที่ช่อง ⭐)
 const DEFAULT_EXP = 20;
 // เลเวลระบบ: exp ที่ต้องใช้เพิ่มขึ้นแบบทวีคูณต่อเลเวล ตันที่เลเวล 300
-const LEVEL_BASE_EXP = 30;
+const LEVEL_BASE_EXP = 150;
 const LEVEL_GROWTH = 1.035;
 const LEVEL_CAP = 300;
 const STAT_POINTS_PER_LEVEL = 3;
