@@ -23,6 +23,21 @@
   </div>
 </header>
 
+<div class="level-strip">
+  <div class="level-strip-inner">
+    <div class="level-frame">
+      <span class="level-label">LV</span>
+      <span class="level-num" id="levelNum">1</span>
+    </div>
+    <div class="level-progress">
+      <div class="level-bar-track">
+        <div class="level-bar-fill" id="levelBarFill" style="width:0%"></div>
+      </div>
+      <span class="level-exp-text" id="levelExpText">0 / 30 EXP</span>
+    </div>
+  </div>
+</div>
+
 <main class="container">
 
   <!-- LIFE GOALS -->
@@ -35,6 +50,18 @@
       <p class="identity-text" id="identityText" data-field="identity">นักเรียน ม.6 ที่ตั้งเป้าหมายเปลี่ยนตัวเองให้เป็นคนใหม่</p>
       <p class="goal-text"><strong>เป้าหมายระยะยาว:</strong> <span id="longGoalText" data-field="longTermGoal">เป็น Software Engineer / Full Stack Developer ที่มีพื้นฐาน CS แข็งแรง สร้างโปรเจกต์ของตัวเองได้ และทำงานกับบริษัทเทคระดับโลกได้ในอนาคต</span></p>
       <div class="priority-list" id="priorityList"></div>
+    </div>
+  </section>
+
+  <!-- AVATAR -->
+  <section class="card" id="avatarCard">
+    <div class="card-header">
+      <h2>🧑‍🚀 Avatar</h2>
+      <span class="avatar-points-badge" id="avatarPointsBadge">แต้มเหลือ 0</span>
+    </div>
+    <div class="card-body">
+      <p class="earn-hint">อัปเลเวลได้ <b>3 แต้ม</b> เอาไปแจกจ่ายให้ความสามารถด้านล่างได้เอง (สูงสุดเลเวล 300 · ยิ่งเลเวลสูง ยิ่งต้องใช้ exp มากขึ้น)</p>
+      <div class="avatar-stats" id="avatarStats"></div>
     </div>
   </section>
 

@@ -16,9 +16,9 @@ function defaultState() {
     },
     dailyMissions: {
       list: [
-        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false, coin: 10 },
-        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false, coin: 10 },
-        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false, coin: 10 },
+        { text: "ตั้งเป้าหมายเล็ก ๆ ของวันนี้ให้สำเร็จ", done: false, coin: 10, exp: 20 },
+        { text: "ทบทวนสิ่งที่เรียนวันนี้ 10 นาที", done: false, coin: 10, exp: 20 },
+        { text: "ดื่มน้ำให้ครบ 8 แก้ว", done: false, coin: 10, exp: 20 },
       ],
       lastResetDate: null, // วันที่ (todayStr) ที่รีเซ็ตล่าสุด
     },
@@ -36,40 +36,40 @@ function defaultState() {
     weeklyFocus: {
       theme: "สัปดาห์นี้: โฟกัส Coding + Physics",
       checklist: [
-        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false, coin: 20 },
-        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false, coin: 20 },
-        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false, coin: 20 },
+        { text: "ทำโปรเจกต์ Dashboard ให้คืบหน้า", done: false, coin: 20, exp: 20 },
+        { text: "ทบทวนฟิสิกส์บทที่กำลังเรียน", done: false, coin: 20, exp: 20 },
+        { text: "ฝึกภาษาอังกฤษ 15 นาที/วัน", done: false, coin: 20, exp: 20 },
       ],
     },
     exercise: {
       "Push Day": [
-        { name: "Push-up 3x12", done: false, coin: 10 },
-        { name: "Pike Push-up 3x8", done: false, coin: 10 },
-        { name: "Dips 3x10", done: false, coin: 10 },
+        { name: "Push-up 3x12", done: false, coin: 10, exp: 20 },
+        { name: "Pike Push-up 3x8", done: false, coin: 10, exp: 20 },
+        { name: "Dips 3x10", done: false, coin: 10, exp: 20 },
       ],
       "Pull Day": [
-        { name: "Pull-up / Negative 3x6", done: false, coin: 10 },
-        { name: "Australian Row 3x12", done: false, coin: 10 },
+        { name: "Pull-up / Negative 3x6", done: false, coin: 10, exp: 20 },
+        { name: "Australian Row 3x12", done: false, coin: 10, exp: 20 },
       ],
       "Leg Day": [
-        { name: "Squat 4x15", done: false, coin: 10 },
-        { name: "Lunges 3x12/ข้าง", done: false, coin: 10 },
-        { name: "Calf Raise 3x20", done: false, coin: 10 },
+        { name: "Squat 4x15", done: false, coin: 10, exp: 20 },
+        { name: "Lunges 3x12/ข้าง", done: false, coin: 10, exp: 20 },
+        { name: "Calf Raise 3x20", done: false, coin: 10, exp: 20 },
       ],
       "Core": [
-        { name: "Plank 3x45s", done: false, coin: 10 },
-        { name: "Leg Raise 3x12", done: false, coin: 10 },
+        { name: "Plank 3x45s", done: false, coin: 10, exp: 20 },
+        { name: "Leg Raise 3x12", done: false, coin: 10, exp: 20 },
       ],
       "Mobility/Stretch": [
-        { name: "Full Body Stretch 10 นาที", done: false, coin: 10 },
-        { name: "Hip Mobility Drill", done: false, coin: 10 },
+        { name: "Full Body Stretch 10 นาที", done: false, coin: 10, exp: 20 },
+        { name: "Hip Mobility Drill", done: false, coin: 10, exp: 20 },
       ],
       "Plyometric": [
-        { name: "Jump Squat 3x10", done: false, coin: 10 },
-        { name: "Box Jump / Broad Jump 3x8", done: false, coin: 10 },
+        { name: "Jump Squat 3x10", done: false, coin: 10, exp: 20 },
+        { name: "Box Jump / Broad Jump 3x8", done: false, coin: 10, exp: 20 },
       ],
       "Sport": [
-        { name: "เล่นกีฬา", done: false, coin: 100 },
+        { name: "เล่นกีฬา", done: false, coin: 100, exp: 20 },
       ],
     },
     exerciseWeek: {
@@ -93,13 +93,14 @@ function defaultState() {
       { title: "Mission Control Dashboard", status: "กำลังทำ", notes: "เว็บติดตามเป้าหมายชีวิต + ระบบเหรียญแลกรางวัล เก็บข้อมูลในเครื่อง" },
     ],
     habits: {
-      "เขียนโค้ดทุกวัน": { streak: 0, history: {}, coin: 5 },
-      "ออกกำลังกาย": { streak: 0, history: {}, coin: 5 },
-      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {}, coin: 5 },
-      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {}, coin: 5 },
-      "ลดเวลาดู Shorts": { streak: 0, history: {}, coin: 5 },
+      "เขียนโค้ดทุกวัน": { streak: 0, history: {}, coin: 5, exp: 20 },
+      "ออกกำลังกาย": { streak: 0, history: {}, coin: 5, exp: 20 },
+      "อ่านหนังสือ/ทบทวน": { streak: 0, history: {}, coin: 5, exp: 20 },
+      "ภาษาอังกฤษ 15 นาที": { streak: 0, history: {}, coin: 5, exp: 20 },
+      "ลดเวลาดู Shorts": { streak: 0, history: {}, coin: 5, exp: 20 },
     },
     coins: defaultCoins(),
+    level: defaultLevel(),
   };
 }
 
@@ -119,8 +120,24 @@ function defaultCoins() {
   };
 }
 
+function defaultLevel() {
+  return {
+    totalExp: 0,
+    earnedExpKeys: {}, // key -> จำนวน exp ที่เคยได้ (กันได้ exp ซ้ำจากรายการเดิม เหมือน coins.earnedKeys)
+    stats: { physical: 0, intelligence: 0, skill: 0, computer: 0 },
+    unspentPoints: 0, // แต้มความสามารถที่ยังไม่ได้แจก (อัปเลเวลได้ 3 แต้ม/เลเวล)
+  };
+}
+
 // อัตราการได้เหรียญจากการทำสิ่งต่าง ๆ
 const COIN_REWARDS = { habit: 5, focus: 20, exercise: 10, mission: 10};
+// exp เริ่มต้นของแต่ละรายการ (แก้ต่อรายการได้ที่ช่อง ⭐)
+const DEFAULT_EXP = 20;
+// เลเวลระบบ: exp ที่ต้องใช้เพิ่มขึ้นแบบทวีคูณต่อเลเวล ตันที่เลเวล 300
+const LEVEL_BASE_EXP = 30;
+const LEVEL_GROWTH = 1.035;
+const LEVEL_CAP = 300;
+const STAT_POINTS_PER_LEVEL = 3;
 
 /* ---------- State + localStorage ---------- */
 let state = null;
@@ -151,6 +168,14 @@ function migrateState(s) {
   if (s.dailyMissions.lastResetDate === undefined) s.dailyMissions.lastResetDate = todayStr();
   if (!s.exercise || typeof s.exercise !== "object") s.exercise = base.exercise;
   if (!Array.isArray(s.exercise["Sport"]) || s.exercise["Sport"].length === 0) s.exercise["Sport"] = base.exercise["Sport"];
+  if (!s.level || typeof s.level !== "object") s.level = defaultLevel();
+  if (typeof s.level.totalExp !== "number") s.level.totalExp = 0;
+  if (!s.level.earnedExpKeys || typeof s.level.earnedExpKeys !== "object") s.level.earnedExpKeys = {};
+  if (!s.level.stats || typeof s.level.stats !== "object") s.level.stats = defaultLevel().stats;
+  Object.keys(defaultLevel().stats).forEach((k) => {
+    if (typeof s.level.stats[k] !== "number") s.level.stats[k] = 0;
+  });
+  if (typeof s.level.unspentPoints !== "number") s.level.unspentPoints = 0;
   return s;
 }
 
@@ -206,6 +231,97 @@ function refreshShopAffordability() {
   });
 }
 
+/* ---------- Level / EXP system ---------- */
+// exp ที่ต้องใช้เพื่อขึ้นจากเลเวลนี้ไปเลเวลถัดไป (เพิ่มขึ้นแบบทวีคูณ)
+function expForLevel(level) {
+  return Math.round(LEVEL_BASE_EXP * Math.pow(LEVEL_GROWTH, level - 1));
+}
+// แปลง exp สะสมทั้งหมด -> เลเวลปัจจุบัน + ความคืบหน้าไปเลเวลถัดไป
+function computeLevelInfo(totalExp) {
+  let level = 1;
+  let remaining = totalExp;
+  while (level < LEVEL_CAP) {
+    const need = expForLevel(level);
+    if (remaining < need) break;
+    remaining -= need;
+    level++;
+  }
+  const maxed = level >= LEVEL_CAP;
+  return { level, currentExp: maxed ? 0 : remaining, neededExp: maxed ? 0 : expForLevel(level), maxed };
+}
+// ให้ exp ครั้งเดียวต่อ key (กันได้ exp ซ้ำ เหมือน awardCoins) พร้อมแจกแต้มความสามารถถ้าเลเวลอัพ
+function awardExp(key, amount) {
+  if (state.level.earnedExpKeys[key]) return;
+  state.level.earnedExpKeys[key] = amount;
+  const before = computeLevelInfo(state.level.totalExp).level;
+  state.level.totalExp += amount;
+  const info = computeLevelInfo(state.level.totalExp);
+  if (info.level > before) {
+    const gained = (info.level - before) * STAT_POINTS_PER_LEVEL;
+    state.level.unspentPoints += gained;
+    showToast(`🎉 เลเวลอัพ! Lv.${info.level} (+${gained} แต้มความสามารถ)`);
+  }
+  updateLevelDisplay();
+  renderAvatar();
+  scheduleSave();
+}
+function updateLevelDisplay() {
+  const info = computeLevelInfo(state.level.totalExp);
+  const numEl = document.getElementById("levelNum");
+  if (numEl) numEl.textContent = info.level;
+  const fillEl = document.getElementById("levelBarFill");
+  const textEl = document.getElementById("levelExpText");
+  if (!fillEl || !textEl) return;
+  if (info.maxed) {
+    fillEl.style.width = "100%";
+    textEl.textContent = "MAX LEVEL";
+  } else {
+    const pct = info.neededExp > 0 ? Math.min(100, (info.currentExp / info.neededExp) * 100) : 0;
+    fillEl.style.width = pct + "%";
+    textEl.textContent = `${info.currentExp} / ${info.neededExp} EXP`;
+  }
+}
+// ช่องแก้ไข exp ของแต่ละรายการ (habit / focus / exercise / mission)
+function expInputHtml(idx, value, fallback) {
+  return `<span class="item-exp">⭐<input type="number" class="item-exp-input" min="0" value="${value ?? fallback}" data-idx="${idx}"></span>`;
+}
+
+/* ---------- Avatar (stat points) ---------- */
+const STAT_DEFS = [
+  { key: "physical", icon: "💪", name: "ด้านร่างกาย" },
+  { key: "intelligence", icon: "🧠", name: "ด้านสติปัญญา" },
+  { key: "skill", icon: "🎨", name: "ด้านความสามารถ" },
+  { key: "computer", icon: "💻", name: "ด้านคอมพิวเตอร์" },
+];
+function renderAvatar() {
+  const badge = document.getElementById("avatarPointsBadge");
+  if (badge) badge.textContent = `แต้มเหลือ ${state.level.unspentPoints}`;
+  const wrap = document.getElementById("avatarStats");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  STAT_DEFS.forEach((def) => {
+    const row = document.createElement("div");
+    row.className = "stat-row";
+    row.innerHTML = `
+      <span class="stat-icon">${def.icon}</span>
+      <span class="stat-name">${def.name}</span>
+      <span class="stat-value">${state.level.stats[def.key]}</span>
+      <button class="btn btn-ghost btn-sm stat-add-btn" data-stat="${def.key}" ${state.level.unspentPoints <= 0 ? "disabled" : ""}>+1</button>
+    `;
+    wrap.appendChild(row);
+  });
+  wrap.querySelectorAll(".stat-add-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      if (state.level.unspentPoints <= 0) return;
+      const key = e.currentTarget.dataset.stat;
+      state.level.stats[key]++;
+      state.level.unspentPoints--;
+      scheduleSave();
+      renderAvatar();
+    });
+  });
+}
+
 /* ---------- Toast ---------- */
 let toastTimer = null;
 function showToast(msg) {
@@ -239,6 +355,8 @@ function renderAll() {
   renderHabits();
   renderShop();
   updateCoinDisplay();
+  updateLevelDisplay();
+  renderAvatar();
 }
 
 /* ---------- Life Goals ---------- */
@@ -322,6 +440,9 @@ function maybeDailyReset() {
   Object.keys(state.coins.earnedKeys).forEach((k) => {
     if (k.startsWith("mission|")) delete state.coins.earnedKeys[k];
   });
+  Object.keys(state.level.earnedExpKeys).forEach((k) => {
+    if (k.startsWith("mission|")) delete state.level.earnedExpKeys[k];
+  });
   state.dailyMissions.lastResetDate = today;
   saveLocal();
 }
@@ -335,6 +456,7 @@ function renderDailyMissions() {
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.text)}" data-idx="${i}">
       ${coinInputHtml(i, item.coin, COIN_REWARDS.mission)}
+      ${expInputHtml(i, item.exp, DEFAULT_EXP)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -344,7 +466,10 @@ function renderDailyMissions() {
       const idx = +e.target.dataset.idx;
       const item = state.dailyMissions.list[idx];
       item.done = e.target.checked;
-      if (item.done && item.text.trim()) awardCoins("mission|" + item.text.trim(), item.coin ?? COIN_REWARDS.mission);
+      if (item.done && item.text.trim()) {
+        awardCoins("mission|" + item.text.trim(), item.coin ?? COIN_REWARDS.mission);
+        awardExp("mission|" + item.text.trim(), item.exp ?? DEFAULT_EXP);
+      }
       scheduleSave();
       renderDailyMissions();
     });
@@ -361,6 +486,12 @@ function renderDailyMissions() {
       scheduleSave();
     });
   });
+  list.querySelectorAll(".item-exp-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.dailyMissions.list[+e.target.dataset.idx].exp = Math.max(0, +e.target.value || 0);
+      scheduleSave();
+    });
+  });
   list.querySelectorAll("[data-remove]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       state.dailyMissions.list.splice(+e.target.dataset.remove, 1);
@@ -370,7 +501,7 @@ function renderDailyMissions() {
   });
 }
 document.getElementById("addDailyMission").addEventListener("click", () => {
-  state.dailyMissions.list.push({ text: "", done: false, coin: COIN_REWARDS.mission });
+  state.dailyMissions.list.push({ text: "", done: false, coin: COIN_REWARDS.mission, exp: DEFAULT_EXP });
   scheduleSave();
   renderDailyMissions();
 });
@@ -388,6 +519,7 @@ function renderWeeklyFocus() {
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.text)}" data-idx="${i}">
       ${coinInputHtml(i, item.coin, COIN_REWARDS.focus)}
+      ${expInputHtml(i, item.exp, DEFAULT_EXP)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -397,7 +529,10 @@ function renderWeeklyFocus() {
       const idx = +e.target.dataset.idx;
       const item = state.weeklyFocus.checklist[idx];
       item.done = e.target.checked;
-      if (item.done && item.text.trim()) awardCoins("focus|" + item.text.trim(), item.coin ?? COIN_REWARDS.focus);
+      if (item.done && item.text.trim()) {
+        awardCoins("focus|" + item.text.trim(), item.coin ?? COIN_REWARDS.focus);
+        awardExp("focus|" + item.text.trim(), item.exp ?? DEFAULT_EXP);
+      }
       scheduleSave();
       renderWeeklyFocus();
     });
@@ -414,6 +549,12 @@ function renderWeeklyFocus() {
       scheduleSave();
     });
   });
+  list.querySelectorAll(".item-exp-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.weeklyFocus.checklist[+e.target.dataset.idx].exp = Math.max(0, +e.target.value || 0);
+      scheduleSave();
+    });
+  });
   list.querySelectorAll("[data-remove]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       state.weeklyFocus.checklist.splice(+e.target.dataset.remove, 1);
@@ -427,7 +568,7 @@ document.getElementById("focusTheme").addEventListener("input", (e) => {
   scheduleSave();
 });
 document.getElementById("addFocusItem").addEventListener("click", () => {
-  state.weeklyFocus.checklist.push({ text: "", done: false, coin: COIN_REWARDS.focus });
+  state.weeklyFocus.checklist.push({ text: "", done: false, coin: COIN_REWARDS.focus, exp: DEFAULT_EXP });
   scheduleSave();
   renderWeeklyFocus();
 });
@@ -458,6 +599,9 @@ function maybeExerciseDailyReset() {
   });
   Object.keys(state.coins.earnedKeys).forEach((k) => {
     if (k.startsWith("exercise|")) delete state.coins.earnedKeys[k];
+  });
+  Object.keys(state.level.earnedExpKeys).forEach((k) => {
+    if (k.startsWith("exercise|")) delete state.level.earnedExpKeys[k];
   });
   state.exerciseWeek.lastResetDate = today;
   saveLocal();
@@ -519,6 +663,7 @@ function renderExercise() {
       <input type="checkbox" ${item.done ? "checked" : ""} data-idx="${i}">
       <input type="text" class="check-label" value="${escapeAttr(item.name)}" data-idx="${i}">
       ${coinInputHtml(i, item.coin, COIN_REWARDS.exercise)}
+      ${expInputHtml(i, item.exp, DEFAULT_EXP)}
       <button class="btn-icon" data-remove="${i}">✕</button>
     `;
     list.appendChild(li);
@@ -527,8 +672,10 @@ function renderExercise() {
     cb.addEventListener("change", (e) => {
       const item = state.exercise[activeExerciseDay][+e.target.dataset.idx];
       item.done = e.target.checked;
-      if (item.done && item.name.trim())
+      if (item.done && item.name.trim()) {
         awardCoins("exercise|" + activeExerciseDay + "|" + item.name.trim(), item.coin ?? COIN_REWARDS.exercise);
+        awardExp("exercise|" + activeExerciseDay + "|" + item.name.trim(), item.exp ?? DEFAULT_EXP);
+      }
       scheduleSave();
       renderExercise();
     });
@@ -545,6 +692,12 @@ function renderExercise() {
       scheduleSave();
     });
   });
+  list.querySelectorAll(".item-exp-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.exercise[activeExerciseDay][+e.target.dataset.idx].exp = Math.max(0, +e.target.value || 0);
+      scheduleSave();
+    });
+  });
   list.querySelectorAll("[data-remove]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       state.exercise[activeExerciseDay].splice(+e.target.dataset.remove, 1);
@@ -555,7 +708,7 @@ function renderExercise() {
 }
 document.getElementById("addExerciseItem").addEventListener("click", () => {
   if (!activeExerciseDay) return;
-  state.exercise[activeExerciseDay].push({ name: "", done: false, coin: COIN_REWARDS.exercise });
+  state.exercise[activeExerciseDay].push({ name: "", done: false, coin: COIN_REWARDS.exercise, exp: DEFAULT_EXP });
   scheduleSave();
   renderExercise();
 });
@@ -681,6 +834,7 @@ function renderHabits() {
       <input type="text" class="habit-name" value="${escapeAttr(name)}" data-oldname="${escapeAttr(name)}">
       <span class="habit-streak">🔥 ${habit.streak} วัน</span>
       <span class="item-coin">🪙<input type="number" class="item-coin-input" min="0" value="${habit.coin ?? COIN_REWARDS.habit}" data-habit="${escapeAttr(name)}"></span>
+      <span class="item-exp">⭐<input type="number" class="item-exp-input" min="0" value="${habit.exp ?? DEFAULT_EXP}" data-habit="${escapeAttr(name)}"></span>
       <div class="habit-days">${daysHtml}</div>
       <button class="btn-icon" data-remove-habit="${escapeAttr(name)}">✕</button>
     `;
@@ -693,7 +847,10 @@ function renderHabits() {
       const day = e.target.dataset.day;
       const hist = state.habits[name].history || (state.habits[name].history = {});
       hist[day] = !hist[day];
-      if (hist[day]) awardCoins("habit|" + name + "|" + day, state.habits[name].coin ?? COIN_REWARDS.habit);
+      if (hist[day]) {
+        awardCoins("habit|" + name + "|" + day, state.habits[name].coin ?? COIN_REWARDS.habit);
+        awardExp("habit|" + name + "|" + day, state.habits[name].exp ?? DEFAULT_EXP);
+      }
       scheduleSave();
       renderHabits();
     });
@@ -701,6 +858,12 @@ function renderHabits() {
   list.querySelectorAll(".item-coin-input").forEach((inp) => {
     inp.addEventListener("input", (e) => {
       state.habits[e.target.dataset.habit].coin = Math.max(0, +e.target.value || 0);
+      scheduleSave();
+    });
+  });
+  list.querySelectorAll(".item-exp-input").forEach((inp) => {
+    inp.addEventListener("input", (e) => {
+      state.habits[e.target.dataset.habit].exp = Math.max(0, +e.target.value || 0);
       scheduleSave();
     });
   });
@@ -728,7 +891,7 @@ document.getElementById("addHabit").addEventListener("click", () => {
   let name = "นิสัยใหม่";
   let n = 1;
   while (state.habits[name]) { n++; name = `นิสัยใหม่ ${n}`; }
-  state.habits[name] = { streak: 0, history: {}, coin: COIN_REWARDS.habit };
+  state.habits[name] = { streak: 0, history: {}, coin: COIN_REWARDS.habit, exp: DEFAULT_EXP };
   scheduleSave();
   renderHabits();
 });
